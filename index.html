@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Brawl Pro Tools</title>
+<title>Brawl Calculator Pro</title>
 <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
 
 <style>
@@ -40,12 +40,12 @@ body {
   box-shadow:0 1px 0 #b32400;
 }
 
-/* 📱 YATAY TELEFON */
+/* 📱 TELEFON - TAM MOBİL GÖRÜNÜM */
 .phone {
-  width: 700px;
-  max-width: 95%;
-  margin: 60px auto;
-  border-radius: 40px;
+  width: 95%;
+  max-width: 450px;
+  margin: 80px auto 20px;
+  border-radius: 30px;
   background: #111;
   padding: 20px;
   border: 6px solid #333;
@@ -68,7 +68,7 @@ body {
 
 /* ekran içerik */
 .screen {
-  margin-top:30px;
+  margin-top:20px;
 }
 
 /* kart */
@@ -76,12 +76,15 @@ body {
   background:#1a1a1a;
   padding:15px;
   border-radius:20px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
 }
 
 /* grid */
 .level-grid {
   display:grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap:10px;
 }
 
@@ -89,27 +92,33 @@ body {
   background:#111;
   padding:10px;
   border-radius:10px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
 
 input {
-  width:70px;
-  padding:6px;
+  width:80%;
+  padding:8px;
   border:none;
   border-radius:6px;
   background:#ffcc00;
   text-align:center;
   font-family:'Bangers';
+  font-size:16px;
 }
 
 /* buton */
 .calc-btn {
-  margin-top:15px;
+  margin-top:10px;
   padding:12px;
   border:none;
   border-radius:12px;
   background: linear-gradient(45deg, #00c3ff, #00ffcc);
   font-family:'Bangers';
   cursor:pointer;
+  width:100%;
+  font-size:16px;
 }
 
 /* sonuç */
@@ -119,6 +128,7 @@ input {
   padding:10px;
   border-radius:10px;
   border:2px solid gold;
+  text-align:center;
 }
 
 /* sayfa gizleme */
@@ -127,6 +137,13 @@ input {
 }
 .active {
   display:block;
+}
+
+/* mobil grid uyumu */
+@media(max-width:500px){
+  .level-grid{
+    grid-template-columns: 1fr;
+  }
 }
 </style>
 </head>
