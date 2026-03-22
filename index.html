@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Brawl Upgrade Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin:0;
+  font-family:'Bangers', cursive;
+  color:white;
+  text-align:center;
+  overflow:auto;
+
+  background: linear-gradient(rgba(30,144,255,0.9), rgba(11,61,145,0.95)),
+              url('https://upload.wikimedia.org/wikipedia/en/thumb/0/0a/Brawl_Stars_logo.png/512px-Brawl_Stars_logo.png');
+  background-size: 180px;
+  animation: moveBg 25s linear infinite;
+}
+
+@keyframes moveBg {
+  from { background-position: 0 0; }
+  to { background-position: 500px 500px; }
+}
+
+.container {
+  margin-top: 50px;
+}
+
+h1 {
+  font-size: 55px;
+  text-shadow: 0 0 10px #fff, 0 0 20px #ffcc00, 3px 3px #000;
+}
+
+.card {
+  background: rgba(20,20,20,0.95);
+  display:inline-block;
+  padding:30px;
+  border-radius:25px;
+  box-shadow: 0 0 25px #000, 0 0 15px #00c3ff inset;
+  border: 3px solid #00c3ff;
+}
+
+/* 🔽 YENİ GRID */
+.level-grid {
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:10px;
+  margin-top:15px;
+}
+
+.level-box {
+  background:#111;
+  padding:10px;
+  border-radius:10px;
+}
+
+select {
+  font-family:'Bangers';
+  font-size:16px;
+  padding:8px;
+  border-radius:8px;
+  border:none;
+  background:#ffcc00;
+}
+
+button {
+  font-family:'Bangers';
+  font-size:20px;
+  padding:12px 25px;
+  margin-top:20px;
+  border-radius:12px;
+  border:none;
+  background: linear-gradient(45deg, #ff3b3b, #ff9900);
+  color:white;
+  cursor:pointer;
+}
+
+.result {
+  margin-top:20px;
+  font-size:24px;
+  background:#000;
+  padding:20px;
+  border-radius:15px;
+  border:2px solid gold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>⭐ BRAWL UPGRADE ⭐</h1>
+
+  <div class="card">
+
+    <p>Her Level Kaç Tane?</p>
+
+    <div class="level-grid" id="levels"></div>
+
+    <button onclick="calculate()">HESAPLA 💥</button>
+
+    <div class="result" id="result">Sonuç burada görünecek</div>
+  </div>
+</div>
+
+<script>
+const powerPoints = {
+  1: 20, 2: 30, 3: 50, 4: 80, 5: 130,
+  6: 210, 7: 340, 8: 550, 9: 890, 10: 1440
+};
+
+const goldCost = {
+  1: 20, 2: 35, 3: 75, 4: 140, 5: 290,
+  6: 480, 7: 800, 8: 1250, 9: 1875, 10: 2800
+};
+
+/* 🔥 LEVEL INPUTLARI OLUŞTUR */
+let container = document.getElementById("levels");
+
+for (let lvl = 1; lvl <= 10; lvl++) {
+  let div = document.createElement("div");
+  div.className = "level-box";
+
+  let html = `<div>Level ${lvl}</div>
+              <select id="lvl${lvl}"></select>`;
+
+  div.innerHTML = html;
+  container.appendChild(div);
+
+  let select = div.querySelector("select");
+
+  for (let i = 0; i <= 100; i++) {
+    let option = document.createElement("option");
+    option.value = i;
+    option.text = i;
+    select.appendChild(option);
+  }
+}
+
+/* 🔥 HESAPLAMA */
+function calculate() {
+  let totalPower = 0;
+  let totalGold = 0;
+
+  for (let lvl = 1; lvl <= 10; lvl++) {
+    let count = parseInt(document.getElementById("lvl" + lvl).value);
+
+    let power = 0;
+    let gold = 0;
+
+    for (let i = lvl; i <= 10; i++) {
+      power += powerPoints[i] || 0;
+      gold += goldCost[i] || 0;
+    }
+
+    totalPower += power * count;
+    totalGold += gold * count;
+  }
+
+  document.getElementById("result").innerHTML =
+    `⚡ Toplam Güç: <b>${totalPower}</b><br>
+     💰 Toplam Altın: <b>${totalGold}</b>`;
+}
+</script>
+
+</body>
+</html>
