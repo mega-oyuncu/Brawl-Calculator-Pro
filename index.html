@@ -2,73 +2,76 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Brawl Calculator Pro</title>
+
+<!-- ❗ EN ÖNEMLİSİ (SENDE YOKTU / ÇALIŞMIYORDU) -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Brawl Pro Tools</title>
 <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
 
 <style>
-body {
+html, body {
   margin:0;
+  padding:0;
+  height:100%;
   font-family:'Bangers', cursive;
   background: radial-gradient(circle at top, #1da1ff, #0b3d91 70%);
   color:white;
 }
 
-/* 🔥 SOL ÜST MENÜ */
+/* 🔥 MENÜ */
 .menu {
   position: fixed;
-  top: 15px;
-  left: 15px;
+  top: 10px;
+  left: 10px;
   display:flex;
   flex-direction:column;
-  gap:10px;
+  gap:8px;
   z-index:10;
 }
 
 .menu button {
   font-family:'Bangers';
-  padding:10px 15px;
+  padding:8px 12px;
   border:none;
-  border-radius:12px;
+  border-radius:10px;
   background: linear-gradient(45deg, #ff3b3b, #ff9900);
   color:white;
   cursor:pointer;
-  box-shadow:0 4px 0 #b32400;
-}
-
-.menu button:active {
-  transform: translateY(3px);
-  box-shadow:0 1px 0 #b32400;
 }
 
 /* 📱 TELEFON */
 .phone {
-  width: 700px;
-  max-width: 95%;
-  margin: 60px auto;
-  border-radius: 40px;
+  width: 100%;
+  height: 100vh; /* 🔥 TAM EKRAN */
+  margin: 0;
+  border-radius: 0;
   background: #111;
-  padding: 20px;
-  border: 6px solid #333;
+  padding: 15px;
+  border: none;
   position: relative;
-  box-shadow:0 0 40px rgba(0,0,0,0.8);
+  box-sizing: border-box;
 }
 
 /* dynamic island */
 .phone::before {
   content:"";
-  width:120px;
-  height:25px;
+  width:100px;
+  height:20px;
   background:#000;
   border-radius:20px;
   position:absolute;
-  top:8px;
+  top:5px;
   left:50%;
   transform:translateX(-50%);
 }
 
-/* ekran içerik */
+/* içerik */
 .screen {
-  margin-top:30px;
+  margin-top:25px;
+  height: calc(100vh - 40px);
+  display:flex;
+  flex-direction:column;
 }
 
 /* kart */
@@ -76,24 +79,29 @@ body {
   background:#1a1a1a;
   padding:15px;
   border-radius:20px;
+  flex:1; /* 🔥 TAM DOLDUR */
+  display:flex;
+  flex-direction:column;
 }
 
 /* grid */
 .level-grid {
   display:grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap:10px;
+  flex:1;
 }
 
 .level-box {
   background:#111;
   padding:10px;
   border-radius:10px;
+  text-align:center;
 }
 
 input {
-  width:70px;
-  padding:6px;
+  width:90%;
+  padding:8px;
   border:none;
   border-radius:6px;
   background:#ffcc00;
@@ -103,7 +111,7 @@ input {
 
 /* buton */
 .calc-btn {
-  margin-top:15px;
+  margin-top:10px;
   padding:12px;
   border:none;
   border-radius:12px;
@@ -121,69 +129,22 @@ input {
   border:2px solid gold;
 }
 
-/* sayfa gizleme */
-.page {
-  display:none;
-}
-.active {
-  display:block;
-}
-
-/* 📱 TAM EKRAN MOBİL DÜZELTME */
-@media(max-width:600px){
-
-  body {
-    height: 100vh;
-    overflow:auto;
-  }
-
-  .phone {
-    width: 100% !important;
-    max-width: 100% !important;
-    height: 100vh;
-    margin: 0;
-    border-radius: 0;
-    border: none;
-    padding: 15px;
-  }
-
-  .screen {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-
-  .card {
-    flex:1;
-  }
-
-  .menu {
-    top:10px;
-    left:10px;
-    transform: scale(0.9);
-  }
-
-  .level-grid{
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
+/* sayfa */
+.page { display:none; }
+.active { display:block; }
 </style>
 </head>
 
 <body>
 
-<!-- 🔥 MENÜ -->
 <div class="menu">
   <button onclick="showPage('upgrade')">Savaşçı Yükseltme Hesaplayıcısı</button>
   <button onclick="showPage('gem')">Kostüm Fiyatı Hesaplayıcısı</button>
 </div>
 
-<!-- 📱 TELEFON -->
 <div class="phone">
   <div class="screen">
 
-    <!-- 🔥 UPGRADE -->
     <div id="upgrade" class="page active">
       <h2>Yükseltme</h2>
       <div class="card">
@@ -193,7 +154,6 @@ input {
       </div>
     </div>
 
-    <!-- 💎 GEM -->
     <div id="gem" class="page">
       <h2>Kostümler</h2>
       <div class="card">
