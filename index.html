@@ -40,12 +40,12 @@ body {
   box-shadow:0 1px 0 #b32400;
 }
 
-/* 📱 TELEFON - TAM MOBİL GÖRÜNÜM */
+/* 📱 TELEFON */
 .phone {
-  width: 95%;
-  max-width: 450px;
-  margin: 80px auto 20px;
-  border-radius: 30px;
+  width: 700px;
+  max-width: 95%;
+  margin: 60px auto;
+  border-radius: 40px;
   background: #111;
   padding: 20px;
   border: 6px solid #333;
@@ -68,7 +68,7 @@ body {
 
 /* ekran içerik */
 .screen {
-  margin-top:20px;
+  margin-top:30px;
 }
 
 /* kart */
@@ -76,15 +76,12 @@ body {
   background:#1a1a1a;
   padding:15px;
   border-radius:20px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
 }
 
 /* grid */
 .level-grid {
   display:grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap:10px;
 }
 
@@ -92,33 +89,27 @@ body {
   background:#111;
   padding:10px;
   border-radius:10px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
 }
 
 input {
-  width:80%;
-  padding:8px;
+  width:70px;
+  padding:6px;
   border:none;
   border-radius:6px;
   background:#ffcc00;
   text-align:center;
   font-family:'Bangers';
-  font-size:16px;
 }
 
 /* buton */
 .calc-btn {
-  margin-top:10px;
+  margin-top:15px;
   padding:12px;
   border:none;
   border-radius:12px;
   background: linear-gradient(45deg, #00c3ff, #00ffcc);
   font-family:'Bangers';
   cursor:pointer;
-  width:100%;
-  font-size:16px;
 }
 
 /* sonuç */
@@ -128,7 +119,6 @@ input {
   padding:10px;
   border-radius:10px;
   border:2px solid gold;
-  text-align:center;
 }
 
 /* sayfa gizleme */
@@ -139,10 +129,43 @@ input {
   display:block;
 }
 
-/* mobil grid uyumu */
-@media(max-width:500px){
+/* 📱 TAM EKRAN MOBİL DÜZELTME */
+@media(max-width:600px){
+
+  body {
+    height: 100vh;
+    overflow:auto;
+  }
+
+  .phone {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100vh;
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    padding: 15px;
+  }
+
+  .screen {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .card {
+    flex:1;
+  }
+
+  .menu {
+    top:10px;
+    left:10px;
+    transform: scale(0.9);
+  }
+
   .level-grid{
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 </style>
@@ -197,13 +220,11 @@ input {
 </div>
 
 <script>
-/* sayfa değiştir */
 function showPage(page){
   document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
   document.getElementById(page).classList.add("active");
 }
 
-/* upgrade oluştur */
 const powerPoints = {
   1:20,2:30,3:50,4:80,5:130,
   6:210,7:340,8:550,9:890,10:1440
@@ -224,7 +245,6 @@ for (let lvl=1; lvl<=10; lvl++){
   container.appendChild(div);
 }
 
-/* upgrade hesap */
 function calculate(){
   let totalPower=0;
   let totalGold=0;
@@ -254,7 +274,6 @@ function calculate(){
   `⚡ Güç Puanı: ${totalPower}<br>💰 Altın: ${totalGold}`;
 }
 
-/* 💎 GEM HESAP */
 function calcGem(){
   let r = document.getElementById("rare").value || 0;
   let sr = document.getElementById("superrare").value || 0;
@@ -267,10 +286,7 @@ function calcGem(){
     return;
   }
 
-  /* elmas */
   let totalGem = (r*29) + (sr*79) + (e*149);
-
-  /* mücevher fiyatı */
   let totalPrice = (r*1000) + (sr*2750) + (e*5000);
 
   document.getElementById("gemResult").innerHTML=
