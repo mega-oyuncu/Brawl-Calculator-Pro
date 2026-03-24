@@ -63,7 +63,6 @@ html, body {
   flex-direction:column;
 }
 
-/* 🔥 SAĞ ÜST BAŞLIK */
 .page h2 {
   position:absolute;
   top:10px;
@@ -105,16 +104,22 @@ input {
   background:#ffcc00;
   text-align:center;
   font-family:'Bangers';
+  transition: all 0.2s ease;
+  position:relative;
+  z-index:1;
 }
 
-.calc-btn {
-  margin-top:10px;
-  padding:12px;
-  border:none;
+/* 🔥 FIXED GLOW (ARTIK YAZIYI KAPATMAZ) */
+input:focus {
+  outline:none;
+  box-shadow:0 0 10px rgba(0,195,255,0.8);
+}
+
+/* 🔥 AYIRICI ÇERÇEVE */
+.divider {
+  border: 2px solid rgba(0,195,255,0.4);
   border-radius:12px;
-  background: linear-gradient(45deg, #00c3ff, #00ffcc);
-  cursor:pointer;
-  box-shadow:0 0 10px #00c3ff;
+  margin:10px 0;
 }
 
 .result {
@@ -123,6 +128,11 @@ input {
   padding:10px;
   border-radius:10px;
   border:2px solid gold;
+}
+
+.or-text{
+  color:#00c3ff;
+  text-shadow:0 0 10px #00c3ff;
 }
 
 .page { display:none; }
@@ -140,7 +150,6 @@ input {
 <div class="phone">
   <div class="screen">
 
-    <!-- UPGRADE -->
     <div id="upgrade" class="page active">
       <h2>Yükseltme</h2>
       <div class="card">
@@ -148,14 +157,23 @@ input {
         <div class="level-box">Buffie <input type="number" id="buffie"></div>
         <div class="level-box">Hiperşarj <input type="number" id="hyper_upgrade"></div>
 
+        <div class="level-box">Yıldız Gücü <input type="number" id="star"></div>
+        <div class="level-box">Aksesuar <input type="number" id="accessory"></div>
+
+        <div class="level-grid">
+          <div class="level-box">Sıradan Eşya <input type="number" id="normalItem"></div>
+          <div class="level-box">Destansı Eşya <input type="number" id="epicItem"></div>
+        </div>
+
+        <!-- 🔥 YENİ AYIRICI -->
+        <div class="divider"></div>
+
         <div class="level-grid" id="levels"></div>
 
-        <button class="calc-btn" onclick="calculate()">HESAPLA</button>
         <div class="result" id="result">Sonuç burada</div>
       </div>
     </div>
 
-    <!-- GEM -->
     <div id="gem" class="page">
       <h2>Kozmetikler</h2>
       <div class="card">
@@ -168,7 +186,6 @@ input {
         <div class="level-box">Efsanevi <input type="number" id="legendary"></div>
         <div class="level-box">Hiperşarj <input type="number" id="hyper"></div>
 
-        <button class="calc-btn" onclick="calcGem()">HESAPLA</button>
         <div class="result" id="gemResult">Sonuç burada</div>
 
       </div>
@@ -203,16 +220,29 @@ for (let lvl=1; lvl<=10; lvl++){
   container.appendChild(div);
 }
 
+document.addEventListener("input", ()=>{
+  calculate();
+  calcGem();
+});
+
 function calculate(){
   let totalPower=0;
   let totalGold=0;
 
   let buffie = +document.getElementById("buffie").value || 0;
   let hyperU = +document.getElementById("hyper_upgrade").value || 0;
+  let star = +document.getElementById("star").value || 0;
+  let acc = +document.getElementById("accessory").value || 0;
+  let normalItem = +document.getElementById("normalItem").value || 0;
+  let epicItem = +document.getElementById("epicItem").value || 0;
 
   totalPower += buffie * 2000;
   totalGold += buffie * 1000;
   totalGold += hyperU * 5000;
+  totalGold += star * 2000;
+  totalGold += acc * 1000;
+  totalGold += normalItem * 1000;
+  totalGold += epicItem * 1500;
 
   for (let lvl=1; lvl<=10; lvl++){
     let val=document.getElementById("lvl"+lvl).value;
@@ -253,11 +283,10 @@ function calcGem(){
   let hasNormal = (r>0 || sr>0 || e>0);
 
   let priceText = hasNormal
-    ? `🪙 Mücevher Fiyatı: ${totalPrice}`
-    : "🪙 Mücevher seçeneği yok";
+    ? `💎 Elmas Fiyatı: ${totalGem}<br><span class="or-text">veya</span><br>🪙 Mücevher Fiyatı: ${totalPrice}`
+    : `💎 Elmas Fiyatı: ${totalGem}<br><span class="or-text">veya</span><br>🪙 Mücevher seçeneği yok`;
 
-  document.getElementById("gemResult").innerHTML=
-  `💎 Toplam Elmas: ${totalGem}<br>${priceText}`;
+  document.getElementById("gemResult").innerHTML = priceText;
 }
 </script>
 
